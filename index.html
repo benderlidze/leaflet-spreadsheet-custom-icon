@@ -14,6 +14,7 @@
         integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
         integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
 
     <style>
         html,
@@ -23,10 +24,8 @@
         }
 
         .leaflet-container {
-            height: 400px;
-            width: 600px;
-            max-width: 100%;
-            max-height: 100%;
+            height: 100vh;
+            width: 100%;
         }
     </style>
 
@@ -38,7 +37,7 @@
     <div id='map'></div>
 
     <script>
-        const map = L.map('map').setView([51.5, -0.09], 13);
+        const map = L.map('map').setView({ lat: 40.011025017919515, lng: -98.19962617439802 }, 3);
 
         L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -54,12 +53,22 @@
 
         const greenIcon = new LeafIcon({ iconUrl: 'icon.png' });
 
+        d3.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQn-wCHbwtz-HGIi4PiVCd-KDBmWfOmsBLurd4WrrwcqfXkdOvg3oJ_Y8NVfyyZYg1DR5exobJnp9_c/pub?output=csv")
+            .then(data => {
+                console.log('data', data);
+
+                const markers = data.map(pin => {
+                    const { NAME, lat, lon } = pin;
+                    const marker = L.marker([+lat, +lon], { icon: greenIcon })
+                        .bindPopup(NAME)
+                        .addTo(map);
+                    return marker
+                });
 
 
+            })
 
-        const mGreen = L.marker([51.5, -0.09], { icon: greenIcon })
-            .bindPopup('I am a green leaf.')
-            .addTo(map);
+
 
 
 

@@ -58,9 +58,16 @@
                 console.log('data', data);
 
                 const markers = data.map(pin => {
-                    const { NAME, lat, lon } = pin;
+                    const { NAME, DATE, LOCATION, ADDRESS, lat, lon } = pin;
+
+                    const descr = `
+                        <h2>${NAME}</h2>
+                        <div><b>Date:</b> ${DATE}</div>
+                        <div>${LOCATION}</div>
+                        <div><b>Address:</b> ${ADDRESS}</div>
+                    `
                     const marker = L.marker([+lat, +lon], { icon: greenIcon })
-                        .bindPopup(NAME)
+                        .bindPopup(descr)
                         .addTo(map);
                     return marker
                 });

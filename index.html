@@ -102,11 +102,15 @@
                 const markers = data.map((pin, key) => {
                     const { NAME, DATE, LOCATION, ADDRESS, lat, lon } = pin;
 
+                    const link = pin['REGISTRATION LINK']
+                    const href = link ? `<div><a href="${link}">REGISTRATION LINK</a></div>` : ""
                     const descr = `
                         <h2>${NAME}</h2>
                         <div><b>Date:</b> ${DATE}</div>
                         <div>${LOCATION}</div>
                         <div><b>Address:</b> ${ADDRESS}</div>
+                        <div> ${ADDRESS}</div>
+                        ${href}
                     `
 
                     const obj = () => {

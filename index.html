@@ -74,12 +74,19 @@
                 display: none;
             }
         }
+
+        #autocomplete {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px;
+        }
     </style>
 </head>
 
 <body>
     <div class="row">
         <div class="left">
+            <input id="autocomplete" placeholder="Enter your address" type="text"></input>
             <div id="list" class="list-container"></div>
         </div>
         <div class="right">
@@ -202,7 +209,31 @@
             }
         }
 
+
+
+        function initAutocomplete() {
+            const autocomplete = new google.maps.places.Autocomplete((document.getElementById('autocomplete')), {
+                types: ['geocode'],
+            });
+            autocomplete.addListener('place_changed', () => {
+                const place = autocomplete.getPlace();
+                console.log('place', place);
+                const coords = place.geometry.location
+                const lat = coords.lat()
+                const lng = coords.lng()
+                console.log('coords', coords);
+
+                map.flyTo([+lat, +lng], 10);
+
+            });
+        }
+
     </script>
+
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAoyZ_yVsI5N8KhjbWRyQeme1Pfz2DRYYc&libraries=places&callback=initAutocomplete"
+        async defer></script>
+
 </body>
 
 </html>

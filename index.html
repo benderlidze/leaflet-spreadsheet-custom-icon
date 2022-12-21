@@ -17,7 +17,20 @@
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
 
+
     <style>
+        @font-face {
+            font-family: 'Black Diamond';
+            font-style: normal;
+            font-weight: normal;
+            src: local('Black Diamond'), url('Black Diamond.otf') format('truetype');
+        }
+
+        body {
+            font-family: 'Black Diamond', serif;
+
+        }
+
         html,
         body {
             height: 100%;
@@ -61,6 +74,11 @@
             .left {
                 display: none;
             }
+        }
+
+        .leaflet-popup {
+            font-family: 'Black Diamond', serif;
+
         }
     </style>
 </head>

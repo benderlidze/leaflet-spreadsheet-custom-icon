@@ -26,9 +26,8 @@
             src: local('Black Diamond'), url('Black Diamond.otf') format('truetype');
         }
 
-        body {
+        .title {
             font-family: 'Black Diamond', serif;
-
         }
 
         html,
@@ -74,11 +73,6 @@
             .left {
                 display: none;
             }
-        }
-
-        .leaflet-popup {
-            font-family: 'Black Diamond', serif;
-
         }
     </style>
 </head>
@@ -129,7 +123,7 @@
                     const link = pin['REGISTRATION LINK']
                     const href = link ? `<div><a href="${link}">REGISTRATION LINK</a></div>` : ""
                     const descr = `
-                        <h2>${NAME}</h2>
+                        <h2 class="title">${NAME}</h2>
                         <div><b>Date:</b> ${DATE}</div>
                         <div>${LOCATION}</div>
                         <div><b>Address:</b> ${ADDRESS}</div>

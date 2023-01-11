@@ -211,18 +211,28 @@
             }
         }
 
-        const autocomplete = document.getElementById("autocomplete")
-        autocomplete.addEventListener("input", () => {
-            const val = autocomplete.value.toLowerCase()
-            console.log('val', val);
+        function initAutocomplete() {
+            const autocomplete = new google.maps.places.Autocomplete((document.getElementById('autocomplete')), {
+                types: ['geocode'],
+            });
+            autocomplete.addListener('place_changed', () => {
+                const place = autocomplete.getPlace();
+                console.log('place', place);
+                const coords = place.geometry.location
+                const lat = coords.lat()
+                const lng = coords.lng()
+                console.log('coords', coords);
 
-            mainData.divs.forEach(item => {
-                const visible = item.div.innerText.toLowerCase().includes(val)
-                item.div.style.display = visible ? "block" : "none"
-            })
-        })
+                map.flyTo([+lat, +lng], 10);
+
+            });
+        }
 
     </script>
+
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAoyZ_yVsI5N8KhjbWRyQeme1Pfz2DRYYc&libraries=places&callback=initAutocomplete"
+        async defer></script>
 
 </body>
 
